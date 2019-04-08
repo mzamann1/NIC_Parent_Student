@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace NIC_Parent_Student
@@ -39,8 +36,6 @@ namespace NIC_Parent_Student
                 GridView1.DataSource = dbContext.students.ToList();
                 GridView1.DataBind();
             }
-           
-            
         }
 
        
@@ -85,7 +80,7 @@ namespace NIC_Parent_Student
             }
         }
 
-
+        //enables te add guardian button and disables the view guardian button if guardian already exists for the 'i' student and viceversa
         private void RowWork()
         {
             if (GridView1.DataSource!=null)
@@ -135,18 +130,11 @@ namespace NIC_Parent_Student
             }
             else return false;
         }
-
-       
-
-        protected void AddGuardian_Click(object sender, EventArgs e)
-        {
-
-        }
        
         protected void AddGuardian_Click1(object sender, EventArgs e)
         {
            
-                hf1.Value = (sender as LinkButton).CommandArgument;
+            hf1.Value = (sender as LinkButton).CommandArgument;
             Server.Transfer("~/AddGuardian.aspx");
         }
 
@@ -194,10 +182,6 @@ namespace NIC_Parent_Student
             }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            
-        }
         private void Clear()
         {
             txtFirstName.Text  = txtLastName.Text=txtClass.Text   = "";
@@ -216,7 +200,8 @@ namespace NIC_Parent_Student
             }
         }
 
-        
+
+        //Hides The Guardian's Grid named as GridView2, which was invoked by  ViewSingleGuardian_Click1
         private void HideGrid()
         {
             GridView2.Visible = false;
@@ -224,6 +209,7 @@ namespace NIC_Parent_Student
 
         protected void ViewSingleGuardian_Click1(object sender, EventArgs e)
         {
+            //getting std_id value from row by using command argument and storing it into the hidden field, checkout the command argument in Student.aspx Line num 38
             hf1.Value = (sender as LinkButton).CommandArgument;
             i = Convert.ToInt32(hf1.Value);
             using (SampleDataContext context = new SampleDataContext())
